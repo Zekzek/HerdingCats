@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Swarmie : MonoBehaviour
@@ -55,9 +56,26 @@ public class Swarmie : MonoBehaviour
         List<GameObject> interestingThings = SwarmCenter.Instance.interestingThings;
         if (interestingThings.Count > 0)
         {
-            int index = Random.Range(0, interestingThings.Count);
-            chaseTarget = interestingThings[index];
-            attentiveLevel = MINIMUM_ATTENTION_SPAN;
+            float totalDistance = 0;
+
+            foreach (GameObject interestingThing in interestingThings)
+                if ((interestingThing.transform.position - transform.position).sqrMagnitude < 100)
+                    totalDistance += 100 - (interestingThing.transform.position - transform.position).sqrMagnitude;
+
+            float selectorValue = Random.value * totalDistance;
+            foreach (GameObject interestingThing in interestingThings)
+            {
+                if ((interestingThing.transform.position - transform.position).sqrMagnitude < 100)
+                {
+                    selectorValue -= (100 - (interestingThing.transform.position - transform.position).sqrMagnitude);
+                    if (selectorValue <= 0)
+                    {
+                        chaseTarget = interestingThing;
+                        attentiveLevel = MINIMUM_ATTENTION_SPAN;
+                        return;
+                    }
+                }
+            }
         }
     }
 }

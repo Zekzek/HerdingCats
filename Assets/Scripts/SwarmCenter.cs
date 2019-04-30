@@ -12,8 +12,8 @@ public class SwarmCenter : MonoBehaviour
     public GameObject lazerPointer;
     public List<GameObject> interestingThings = new List<GameObject>();
 
-    public float panSpeed = 20;
-    public float panArea = 0.3f;
+    public float panSpeed = 500;
+    public float panArea = 0.35f;
 
     private static readonly Vector3 SPAWN_OFFSET = Vector3.up * 0.6f;
     private const float SPAWN_LOCKOUT_DURATION = 0.05f;
@@ -88,9 +88,9 @@ public class SwarmCenter : MonoBehaviour
         {
             Vector3 change = new Vector3(horizontalChange, 0, verticalChange) * Time.deltaTime * panSpeed;
             transform.position = new Vector3(
-                Mathf.Clamp(transform.position.x + change.x, -15, 15),
+                Mathf.Clamp(transform.position.x + change.x, -30, 30),
                 0,
-                Mathf.Clamp(transform.position.z + change.z, -15, 15)
+                Mathf.Clamp(transform.position.z + change.z, -30, 30)
             );
         }
     }

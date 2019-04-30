@@ -244,5 +244,6 @@ MonoBehaviour:
   swarmiePrefab: {fileID: 2305050568700114684, guid: 3aa25285d642ca44bb983c4478f6f5e3,
     type: 3}
   lazerPointer: {fileID: 4303427471823692309}
-  panSpeed: 25
+  interestingThings: []
+  panSpeed: 75
   panArea: 0.25
